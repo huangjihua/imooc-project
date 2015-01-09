@@ -9,7 +9,7 @@
     <option couch="false" />
     <option curly="true" />
     <option debug="false" />
-    <option devel="false" />
+    <option devel="true" />
     <option dojo="false" />
     <option eqeqeq="true" />
     <option eqnull="false" />
@@ -50,7 +50,7 @@
     <option plusplus="false" />
     <option predef="define,sea" />
     <option proto="false" />
-    <option prototypejs="false" />
+    <option prototypejs="true" />
     <option quotmark="false" />
     <option rhino="false" />
     <option scripturl="false" />

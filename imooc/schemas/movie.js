@@ -24,9 +24,29 @@ var MovieSchema = new mongoose.Schema({
         }
     }
 });
-
+//为模式添加一个staticMethod
+//每次存储之前都要来调用pre ---save
 MovieSchema.pre('save', function (next) {
     if (this.isNew) {
-
+        this.meta.createAt = this.meta.updateAt = Date.now();
+    } else {
+        this.meta.updateAt = Date.now();
     }
+    next();
 });
+
+//添加静态方法
+MovieSchema.statics = {
+    fetch: function (cb) {
+        return this
+            .find({})
+            .sort('meta.updateAt')
+            .exec(cb);
+    },
+    findById: function (id, cb) {
+        return this
+            .findOne({_id: id})
+            .exec(cb);
+    }
+};
+module.exports = MovieSchema;
