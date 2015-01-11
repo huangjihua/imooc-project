@@ -20,10 +20,12 @@ mongoose.connect('mongodb://hank:123456@127.0.0.1/imooc');
 app.set('views', './views/pages');
 app.set('view engine','jade');
 // parse application/x-www-form-urlencoded
-app.use(require('body-parser').urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json --问题关键
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'bower_components')));
+//moment
+app.locals.moment = require('moment');
 app.listen(port);
 
 console.log('imooc started on port '+ port);
@@ -125,13 +127,12 @@ app.get('/admin/update/:id', function (req, res) {
 
 
 // admin post movie
-app.post('/admin/movie/new', function (req, res) {
-    var id = req.body.movie._id;
+app.post('/admin/movie/new', function (req, res, next) {
     var movieObj = req.body.movie;
+    var id = movieObj._id;
     var _movie;
 
     if (id !== 'undefined') {
-        debug.console(movieObj.title);
         Movie.findById(id, function (err, movie) {
             if (err) {
                 console.log(err);
@@ -161,7 +162,6 @@ app.post('/admin/movie/new', function (req, res) {
             }
             res.redirect('/movie/' + movie._id);
         });
-        debug.console(movieObj.title);
     }
 });
 
