@@ -21,8 +21,9 @@ app.set('views', './views/pages');
 app.set('view engine','jade');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
-// parse application/json --问题关键
+// parse application/json
 app.use(bodyParser.json());
+//静态文件目录
 app.use(express.static(path.join(__dirname, 'bower_components')));
 //moment
 app.locals.moment = require('moment');
