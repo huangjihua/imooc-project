@@ -40,3 +40,18 @@ exports.list = function (req, res) {
         });
     });
 };
+
+
+//category update page
+
+exports.update = function (req, res) {
+    var id = req.params.id();
+    if (id) {
+        Category.findById(id, function (err, categories) {
+            res.render('category', {
+                title: '管理后台 分类更新',
+                categories: categories
+            });
+        });
+    }
+};

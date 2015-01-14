@@ -16,7 +16,7 @@ block  content
                     td #{item.name}
                     td #{item.movie.count}
                     td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
-                    td: a(target="_blank",href="../admin/category/update/#{item._id}") 修改
+                    td: a(target="_blank",href="/admin/category/update/#{item._id}") 修改
                     td
                         button.btn.btn-danger.del(type="button",data-id="#{item._id}") 删除
             a.btn.btn-primary(href="/admin/category/new") 继续增加分类

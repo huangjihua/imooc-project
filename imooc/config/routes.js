@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.get('/admin/category/new', Category.new);
     app.post('/admin/category', Category.save);
     app.get('/admin/category/list', Category.list);
-
+    app.get('/admin/category/update/:id', Category.update);
     //Movie
     app.get('/movie/:id', Movie.detail);
     app.get('/admin/movie/new', Movie.new);
