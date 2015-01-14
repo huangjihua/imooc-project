@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose');
 var Movie = mongoose.model('Movie');
+var Category = mongoose.model('Category');
 //var  Category =mongoose.model('Category');
 
 var _ = require('underscore');
@@ -22,18 +23,12 @@ exports.detail = function (req, res) {
 
 //admin new page
 exports.new = function (req, res) {
-    res.render('admin', {
-        title: '环球影视 管理后台',
-        movie: {
-            title: "",
-            doctor: "",
-            country: "",
-            year: "",
-            poster: "",
-            flash: "",
-            summary: "",
-            language: ""
-        }
+    Category.find({}, function (err, categories) {
+        res.render('admin', {
+            title: '环球影视 管理后台',
+            movie: {},
+            categories: categories
+        });
     });
 };
 
@@ -61,7 +56,7 @@ exports.save = function (req, res) {
     var id = movieObj._id;
     var _movie;
 
-    if (id !== 'undefined') {
+    if (id) {
         Movie.findById(id, function (err, movie) {
             if (err) {
                 console.log(err);
@@ -75,16 +70,7 @@ exports.save = function (req, res) {
             });
         });
     } else {
-        _movie = new Movie({
-            doctor: movieObj.doctor,
-            title: movieObj.title,
-            country: movieObj.country,
-            language: movieObj.language,
-            year: movieObj.year,
-            poster: movieObj.poster,
-            summary: movieObj.summary,
-            flash: movieObj.flash
-        });
+        _movie = new Movie(movieObj);
         _movie.save(function (err, movie) {
             if (err) {
                 console.log(err);

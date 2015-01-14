@@ -18,6 +18,7 @@ module.exports = function (app) {
     app.post('/admin/category', Category.save);
     app.get('/admin/category/list', Category.list);
     app.get('/admin/category/update/:id', Category.update);
+    app.delete('/admin/category/list', Category.del);
     //Movie
     app.get('/movie/:id', Movie.detail);
     app.get('/admin/movie/new', Movie.new);

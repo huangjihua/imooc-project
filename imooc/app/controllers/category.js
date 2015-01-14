@@ -5,12 +5,12 @@
  */
 var mongoose = require('mongoose');
 var Category = mongoose.model('Category');
-
+var _ = require('underscore'); //
 //admin new category
 exports.new = function (req, res) {
     res.render('category', {
         title: '环球影视 管理后台新增分类',
-        category: {name: ''}
+        category: {}
     });
 };
 
@@ -18,14 +18,34 @@ exports.new = function (req, res) {
 
 //admin post category
 exports.save = function (req, res) {
-    var _category = req.body.category;
-    var category = new Category(_category);
-    category.save(function (err, category) {
-        if (err) {
-            console.log(err);
-        }
-        res.redirect('/admin/category/list');
-    });
+    var categoryObj = req.body.category;
+    //获取需要更新数据的_id
+    var id = categoryObj._id;
+    var _category;
+
+    if (id) {
+        Category.findById(id, function (err, category) {
+            if (err) {
+                console.log(err);
+            }
+            _category = _.extend(category, categoryObj);
+            _category.save(function (err, category) {
+                if (err) {
+                    console.log(err);
+                }
+                res.redirect('/admin/category/list');
+            });
+
+        });
+    } else {
+        _category = new Category(categoryObj);
+        _category.save(function (err, category) {
+            if (err) {
+                console.log(err);
+            }
+            res.redirect('/admin/category/list');
+        });
+    }
 };
 
 //categorylist page
@@ -43,15 +63,28 @@ exports.list = function (req, res) {
 
 
 //category update page
-
 exports.update = function (req, res) {
-    var id = req.params.id();
+    var id = req.params.id;
     if (id) {
-        Category.findById(id, function (err, categories) {
+        Category.findById(id, function (err, category) {
             res.render('category', {
                 title: '管理后台 分类更新',
-                categories: categories
+                category: category
             });
+        });
+    }
+};
+
+//category delete model
+exports.del = function (req, res) {
+    var id = req.query.id;
+    if (id) {
+        Category.remove({_id: id}, function (err, category) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({success: 1});
+            }
         });
     }
 };
