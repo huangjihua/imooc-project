@@ -7,8 +7,8 @@ block  content
                 .panel-heading
                     h4 #{cate.name}
                 .panel-body
-                    if cate.movie && cate.movie.length > 0
-                        each item in cate.movie
+                if cate.movie && cate.movie.length > 0
+                    each item in cate.movie
                         .col-md-2
                             .thumbnail
                                 a(href="/movie/#{item._id}")
