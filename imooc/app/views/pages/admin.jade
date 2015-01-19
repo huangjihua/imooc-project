@@ -9,7 +9,7 @@ block  content
                     label.col-sm-2.control-label(for ="inputCategory") 电影分类
                     .col-sm-10
                         //--如果没有可选分类，自定义一个分类，同时也会增加到分类表中
-                        input#inputCategory.form-control(type="text", name="movie[categoryName]", value=movie.categoryName)
+                    input#inputCategory.form-control(type="text", name="movie[categoryName]", value=movie.categoryName)
                         select.form-control
                         each category in categories
                             option(value=category._id, name="movie[category]",selected=movie.category ? category._id.toString() == movie.category.toString() : false) #{category.name}
