@@ -37,9 +37,12 @@ exports.update = function (req, res) {
     var id = req.params.id;
     if (id) {
         Movie.findById(id, function (err, movie) {
-            res.render('admin', {
-                title: '环球影视  后台更新',
-                movie: movie
+            Category.find({}, function (err, categories) {
+                res.render('admin', {
+                    title: '环球影视  后台更新',
+                    movie: movie,
+                    categories: categories
+                });
             });
         });
     }
@@ -71,11 +74,18 @@ exports.save = function (req, res) {
         });
     } else {
         _movie = new Movie(movieObj);
+        var categoryid = _movie.category;
         _movie.save(function (err, movie) {
             if (err) {
                 console.log(err);
             }
-            res.redirect('/movie/' + movie._id);
+            //在相应分类中增加当前电影ID
+            Category.findById(categoryid, function (err, category) {
+                category.movie.push(movie._id);
+                category.save(function (err, category) {
+                    res.redirect('/movie/' + movie._id);
+                });
+            });
         });
     }
 };
