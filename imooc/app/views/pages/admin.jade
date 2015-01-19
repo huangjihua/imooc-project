@@ -14,12 +14,12 @@ block  content
                     label.col-sm-2.control-label 分类选择
                     each cate in  categories
                         lable.radio-inline
-                            input(type="radio",name="movie[category]",value=cate._id)
+                            input(type="radio",name="movie[category]",value=cate._id,checked=movie.category?cate._id.toString()==movie.category.toString():false)
                             | #{cate.name}
 
                     //-select.form-control
                     //-    each category in categories
-                    //-        option(value=category._id, name="movie[category]",selected=movie.category ? category._id.toString() == movie.category.toString() : false) #{category.name}
+                    //-        option(value=category._id, name="movie[category]",selected=movie.category ? cate._id.toString() == movie.category.toString() : false) #{category.name}
                 .form-group
                     label.col-sm-2.control-label(for ="inputTitle") 电影名字
                     .col-sm-10
