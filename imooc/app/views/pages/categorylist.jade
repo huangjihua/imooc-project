@@ -14,7 +14,7 @@ block  content
                 each item in categories
                     tr(class="item-id-#{item._id}")
                         td #{item.name}
-                        td #{item.movie.count}
+                        td #{item.movie.length}
                         td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
                         td: a(target="_blank",href="/admin/category/update/#{item._id}") 修改
                         td
