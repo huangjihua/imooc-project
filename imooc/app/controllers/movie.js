@@ -74,18 +74,40 @@ exports.save = function (req, res) {
         });
     } else {
         _movie = new Movie(movieObj);
-        var categoryid = _movie.category;
+
+        var categoryId = movieObj.category;
+        //传入的分类名称
+        var categoryName = movieObj.categoryName;
+
         _movie.save(function (err, movie) {
             if (err) {
                 console.log(err);
             }
-            //在相应分类中增加当前电影ID
-            Category.findById(categoryid, function (err, category) {
-                category.movie.push(movie._id);
-                category.save(function (err, category) {
-                    res.redirect('/movie/' + movie._id);
+            //选中分类情况
+            if (categoryId) {
+                //在相应分类中增加当前电影ID
+                Category.findById(categoryId, function (err, category) {
+                    category.movie.push(movie._id);
+                    category.save(function (err, category) {
+                        res.redirect('/movie/' + movie._id);
+                    });
                 });
-            });
+            } else if (categoryName) {
+                //未选分类，填写了分类名称，需新增分类
+                var category = new Category({
+                    name: categoryName,
+                    movie: [movie._id]
+                });
+                category.save(function (err, category) {
+                    //还需要把当前的新增的分类ID 保存到当前电影里
+                    movie.category = category._id;
+                    movie.save(function (err, movie) {
+                        res.redirect('/movie/' + movie._id);
+                    });
+                });
+            } else {
+
+            }
         });
     }
 };

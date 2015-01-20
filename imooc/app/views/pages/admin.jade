@@ -3,6 +3,9 @@ block  content
     .container
         .row
             form.form-horizontal(method="post",action="/admin/movie")
+                .form-group
+                    label.col-sm-2.control-label #豆瓣电影ID
+                    input#douban(type="text")
                 if(movie._id)
                     input(type='hidden',name='movie[_id]' value=movie._id)
                 .form-group
@@ -55,3 +58,5 @@ block  content
                 .from-group
                     .col-sm-20.col-lg-offset-7
                         button.btn.btn-primary(type="submit") 录入
+
+    script(src="/js/admin.js")
