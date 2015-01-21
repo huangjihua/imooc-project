@@ -27,4 +27,7 @@ module.exports = function (app) {
     app.get('/admin/movie/list', Movie.list);
     app.delete('/admin/movie/list', Movie.del);
 
+    //results 搜索
+    app.get('/results',Index.search);
+
 }
