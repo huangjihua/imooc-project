@@ -19,7 +19,7 @@ block  content
              - for(var i=0;i<totalPage;i++)
                  - if(totalPage>0&&i==0)
                         li(class="#{currentPage>1?'':'disabled'}")
-                           a(href="results?p=#{currentPage-1}&#{query}")
+                           a(href="#{currentPage>1?'results?p='+(currentPage-1)+'&'+query:'javascript:void(0)'}")
                               span(aria-hidden='true')&laquo;
                               span.sr-only 上一页
                  - if(currentPage==(i+1))
@@ -29,4 +29,9 @@ block  content
                      li
                         a(href="results?p=#{i+1}&#{query}") #{i+1}
 
+                - if(totalPage>0)
+                     li(class="#{currentPage<totalPage?'':'disabled'}")
+                           a(href="#{currentPage < totalPage ? 'results?p='+(parseInt(currentPage)+1) + '&' + query : 'javascript:void(0)'}")
+                              span(aria-hidden='true')&raquo;
+                              span.sr-only 下一页
 
