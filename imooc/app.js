@@ -47,7 +47,8 @@ app.set('view engine','jade');
 app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json
 app.use(bodyParser.json());
-
+//专门用来处理form中enctype="multipart/form-data"的数据
+app.use(express.multipart());
 //路由配置文件
 require('./config/routes')(app);
 //静态文件目录

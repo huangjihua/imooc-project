@@ -23,7 +23,8 @@ module.exports = function (app) {
     app.get('/movie/:id', Movie.detail);
     app.get('/admin/movie/new', Movie.new);
     app.get('/admin/movie/update/:id', Movie.update);
-    app.post('/admin/movie', Movie.save);
+    //Movie.savePoster 上传中间件，严格按照左向右顺序执行
+    app.post('/admin/movie',Movie.savePoster,Movie.save);
     app.get('/admin/movie/list', Movie.list);
     app.delete('/admin/movie/list', Movie.del);
 
