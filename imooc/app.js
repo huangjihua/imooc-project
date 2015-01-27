@@ -5,6 +5,7 @@ var express=require('express');
 //NodeJS中的Path对象，用于处理目录的对象，提高开发效率
 var path = require('path');
 var bodyParser = require('body-parser');
+//var multipart = require('multipart');
 //引入mongoose模块
 var mongoose = require('mongoose');
 
@@ -47,8 +48,11 @@ app.set('view engine','jade');
 app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json
 app.use(bodyParser.json());
+
+
 //专门用来处理form中enctype="multipart/form-data"的数据
-app.use(express.multipart());
+//app.use(express.multipart());
+app.use(require('connect-multiparty')());
 //路由配置文件
 require('./config/routes')(app);
 //静态文件目录

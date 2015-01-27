@@ -55,16 +55,20 @@ exports.savePoster = function (req, res, next) {
         var posterData = req.files.uploadPoster;
         var filePath = posterData.path;
         //获取图片原始名字，用来判断
-        var  orginalFilename =posterData.orginalFilename;
-        if(orginalFilename){
+        var  originalFilename =posterData.originalFilename;
+        console.log(req.files);
+        console.log(originalFilename);
+        if(originalFilename){
             fs.readFile(filePath, function (err,data) {
                 //时间戳，用来命名新的图片的名字
                var timestamp  = Date.now();
                 //获取图片类型后缀，png,jpg等
-                var type = posterData.type.split('/')[0];
+                console.log(posterData.type);
+                var type = posterData.type.split('/')[1];
                 var poster =timestamp+'.'+type;
                 //存入一个新的文件夹中
                 var newpath = path.join(__dirname,'../../','/public/upload/'+poster);
+                console.log(newpath);
                 fs.writeFile(newpath,data, function (err) {
                     //写入成功后的poster挂到req上,save里需要用到
                     req.poster= poster;
