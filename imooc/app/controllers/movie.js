@@ -15,7 +15,14 @@ var path =require('path');
 //detail page
 exports.detail = function (req, res) {
     var id = req.params.id;
+
     Movie.findById(id, function (err, movie) {
+        //更新电影访问量，$inc:{pv:1}表示每次访问+1
+        Movie.update({_id:id},{$inc:{pv:1}}, function (err) {
+            if(err){
+                console.log(err);
+            }
+        });
         res.render('detail', {
             title: '环球影视 详情页',
             movie: movie
