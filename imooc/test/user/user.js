@@ -8,18 +8,19 @@ var crypto =require('crypto');
 var bcrypt  =require('bcrypt');
 
 function getRandomString(len) {
-    if (!len) len = 16 ;
+    if (!len) len = 16;
     return crypto.randomBytes(Math.ceil(len / 2).toString('hex'));
 }
 
 var should  =require('should');
 var app  =require('../../app');
 var mongoose =require('mongoose');
-var User=require('../../app/models/user');
+//var User=require('../../app/models/user');
+var User = mongoose.model('User');
 
 //test 测试用例
 var user;
-descripe('<Unit Test',function(){
+describe('<Unit Test',function(){
     descripe('Model User:', function () {
         before(function(done){
            user = {

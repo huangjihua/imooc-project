@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     //},
     //cwd:__dirname
     grunt.initConfig({
+
         pkg: grunt.file.readJSON('package.json'),
         // 这里放插件的设置信息
         mochaTest:{
