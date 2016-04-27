@@ -9,7 +9,7 @@ NodeJs+Express电影网站搭建
 数据库选择mongodb,使用mongoose来完成对mongodb快速构建;
 使用jade后端模板引擎完成页面创建渲染;
 
-2. 项目前端搭建:
+2.项目前端搭建:
 通过jQuery类库和Bootsrap样式框架完成网站前端JS脚本和样式处理;
 
 3.本地开发环境
